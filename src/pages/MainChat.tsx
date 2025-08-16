@@ -86,17 +86,98 @@ const MainChat = () => {
     if (file) {
       setIsUploading(true);
       
-      // Simulate upload process
+      // Add user message showing file upload
+      const userUploadMessage: ChatMessage = {
+        type: 'user',
+        content: `📎 Audio subido: ${file.name}`,
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, userUploadMessage]);
+      
+      // Simulate upload and processing
       setTimeout(() => {
-        setIsUploading(false);
-        const uploadMessage: ChatMessage = {
+        const processingMessage: ChatMessage = {
           type: 'aliada',
-          content: `¡Perfecto! He recibido tu archivo de audio "${file.name}". Estoy analizando la clase y en unos minutos tendrás mi retroalimentación detallada.\n\n¿Hay algo específico que te gustaría que revise en esta clase?`,
+          content: `¡Perfecto! He recibido tu archivo de audio "${file.name}". Estoy analizando la clase y generando tu retroalimentación...`,
           timestamp: new Date()
         };
-        setMessages(prev => [...prev, uploadMessage]);
-      }, 2000);
+        setMessages(prev => [...prev, processingMessage]);
+        
+        // Simulate PDF generation and download after processing
+        setTimeout(() => {
+          setIsUploading(false);
+          
+          // Generate and download PDF
+          generateAndDownloadPDF(file.name);
+          
+          const completionMessage: ChatMessage = {
+            type: 'aliada',
+            content: `✅ ¡Análisis completado! He generado tu retroalimentación detallada en formato PDF. El archivo se ha descargado automáticamente.\n\n📋 El reporte incluye:\n• Análisis de contenido\n• Sugerencias metodológicas\n• Recomendaciones de mejora\n• Plan de acción\n\n¿Te gustaría que profundice en algún aspecto específico?`,
+            timestamp: new Date()
+          };
+          setMessages(prev => [...prev, completionMessage]);
+        }, 3000);
+      }, 1000);
     }
+  };
+
+  const generateAndDownloadPDF = (audioFileName: string) => {
+    // Create PDF content
+    const pdfContent = `
+RETROALIMENTACIÓN PEDAGÓGICA - ALIADA IA
+========================================
+
+Archivo analizado: ${audioFileName}
+Fecha de análisis: ${new Date().toLocaleDateString('es-ES')}
+Hora: ${new Date().toLocaleTimeString('es-ES')}
+
+RESUMEN EJECUTIVO
+-----------------
+Se ha realizado un análisis completo de la clase proporcionada utilizando 
+inteligencia artificial especializada en educación.
+
+ASPECTOS DESTACADOS
+-------------------
+✓ Claridad en la explicación de conceptos
+✓ Uso adecuado del tiempo
+✓ Interacción con estudiantes
+✓ Recursos didácticos empleados
+
+SUGERENCIAS DE MEJORA
+---------------------
+• Implementar más preguntas abiertas para fomentar la participación
+• Incluir ejemplos prácticos adicionales
+• Considerar diferentes estilos de aprendizaje
+• Reforzar conceptos clave al final de la sesión
+
+PLAN DE ACCIÓN
+--------------
+1. Revisar los conceptos que requieren mayor clarificación
+2. Preparar actividades complementarias
+3. Diseñar evaluaciones formativas
+4. Planificar la siguiente sesión basada en este análisis
+
+RECURSOS RECOMENDADOS
+--------------------
+• Técnicas de enseñanza activa
+• Herramientas de evaluación formativa
+• Estrategias de motivación estudiantil
+• Métodos de retroalimentación efectiva
+
+---
+Generado por ALIADA IA - Tu asistente educativo inteligente
+`;
+
+    // Create blob and download
+    const blob = new Blob([pdfContent], { type: 'text/plain;charset=utf-8' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Retroalimentacion_${audioFileName.replace(/\.[^/.]+$/, "")}_${new Date().toISOString().slice(0, 10)}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
   };
 
   const getStatusIcon = (status: string) => {
@@ -147,7 +228,7 @@ const MainChat = () => {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <Brain className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-lg font-bold">PlanificaIA</span>
+            <span className="text-lg font-bold">ALIADA</span>
           </Link>
           <h2 className="text-lg font-semibold flex items-center space-x-2">
             <span>📂</span>
@@ -267,13 +348,23 @@ const MainChat = () => {
             </div>
 
             {/* Audio Upload Button */}
-            <Button
-              variant="outline"
-              className="flex items-center space-x-2 bg-education-orange/10 border-education-orange/30 hover:bg-education-orange/20"
-            >
-              <Mic className="w-4 h-4" />
-              <span>🎙️ Subir una clase en audio</span>
-            </Button>
+            <div className="relative">
+              <input
+                type="file"
+                accept="audio/*,.mp3,.wav,.m4a,.aac"
+                onChange={handleFileUpload}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                disabled={isUploading}
+              />
+              <Button
+                variant="outline"
+                className="flex items-center space-x-2 bg-education-orange/10 border-education-orange/30 hover:bg-education-orange/20"
+                disabled={isUploading}
+              >
+                <Mic className="w-4 h-4" />
+                <span>🎙️ Subir una clase en audio</span>
+              </Button>
+            </div>
 
             {/* Message Input */}
             <div className="flex-1 flex items-center space-x-2">
