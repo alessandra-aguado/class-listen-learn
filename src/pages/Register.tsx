@@ -39,7 +39,7 @@ const Register = () => {
             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-warm">
               <Brain className="w-7 h-7 text-primary" />
             </div>
-            <span className="text-2xl font-bold text-white">PlanificaIA</span>
+            <span className="text-2xl font-bold text-white">ALIADA</span>
           </Link>
           <p className="text-white/80">Crea tu cuenta y comienza a mejorar</p>
         </div>
@@ -51,20 +51,33 @@ const Register = () => {
           </CardHeader>
           
           <CardContent className="space-y-6">
-            
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <Separator className="w-full" />
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="firstName" className="text-base font-medium">
+                  ¿Cómo te llamás?
+                </Label>
+                <Input
+                  id="firstName"
+                  type="text"
+                  placeholder="Ej: Ana María López"
+                  value={formData.firstName}
+                  onChange={(e) => handleInputChange("firstName", e.target.value)}
+                  className="h-12 text-base"
+                  required
+                />
+                <p className="text-sm text-muted-foreground">
+                  Usaremos tu nombre para personalizar tu experiencia con la IA.
+                </p>
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                
-              </div>
-            </div>
 
-            
-
-            
+              <Button 
+                type="submit" 
+                className="w-full h-12 text-base font-medium"
+                disabled={!formData.firstName.trim()}
+              >
+                Siguiente ➔
+              </Button>
+            </form>
           </CardContent>
         </Card>
       </div>
