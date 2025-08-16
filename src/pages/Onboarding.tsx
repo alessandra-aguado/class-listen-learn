@@ -13,6 +13,7 @@ import { useState } from "react";
 
 interface OnboardingData {
   educationalLevel: string;
+  grade: string;
   totalStudents: number;
   department: string;
   province: string;
@@ -29,6 +30,7 @@ const Onboarding = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<OnboardingData>({
     educationalLevel: "",
+    grade: "",
     totalStudents: 0,
     department: "",
     province: "",
@@ -40,7 +42,7 @@ const Onboarding = () => {
     otherResource: ""
   });
 
-  const totalSteps = 5;
+  const totalSteps = 6;
   const progress = (currentStep / totalSteps) * 100;
 
   const handleNext = () => {
@@ -323,6 +325,34 @@ const Onboarding = () => {
     return deptData ? deptData[province as keyof typeof deptData] || [] : [];
   };
 
+  // Get grade options based on educational level
+  const getGradeOptions = (educationalLevel: string) => {
+    switch (educationalLevel) {
+      case "inicial":
+        return ["3 años", "4 años", "5 años"];
+      case "primaria":
+        return ["1° de primaria", "2° de primaria", "3° de primaria", "4° de primaria", "5° de primaria", "6° de primaria"];
+      case "secundaria":
+        return ["1° de secundaria", "2° de secundaria", "3° de secundaria", "4° de secundaria", "5° de secundaria"];
+      default:
+        return [];
+    }
+  };
+
+  // Get helper text based on educational level
+  const getGradeHelperText = (educationalLevel: string) => {
+    switch (educationalLevel) {
+      case "inicial":
+        return "💡 Selecciona el grupo de edad que atiendes regularmente.";
+      case "primaria":
+        return "💡 Puedes elegir el grado que más atiendes. Si enseñas a varios, selecciona el más común.";
+      case "secundaria":
+        return "💡 Elige el grado que enseñas con mayor frecuencia.";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-4">
       <div className="w-full max-w-2xl space-y-8">
@@ -354,17 +384,19 @@ const Onboarding = () => {
           <CardHeader>
             <CardTitle className="text-xl">
               {currentStep === 1 && "Nivel educativo que impartes"}
-              {currentStep === 2 && "¿Cuántos estudiantes tienes actualmente?"}
-              {currentStep === 3 && "¿Dónde se ubica tu centro educativo?"}
-              {currentStep === 4 && "Recursos disponibles"}
-              {currentStep === 5 && "Cantidad promedio de estudiantes por clase"}
+              {currentStep === 2 && "¿Qué grado enseñas principalmente?"}
+              {currentStep === 3 && "¿Cuántos estudiantes tienes actualmente?"}
+              {currentStep === 4 && "¿Dónde se ubica tu centro educativo?"}
+              {currentStep === 5 && "Recursos disponibles"}
+              {currentStep === 6 && "Cantidad promedio de estudiantes por clase"}
             </CardTitle>
             <CardDescription>
               {currentStep === 1 && "Permite a la IA adaptar el análisis pedagógico según el rango de edad y competencias esperadas"}
-              {currentStep === 2 && "Da contexto sobre la complejidad del entorno del docente"}
-              {currentStep === 3 && "Ajusta el feedback a nivel curricular/regional"}
-              {currentStep === 4 && "¡Selecciona los recursos con los que cuentas. Todo suma!"}
-              {currentStep === 5 && "Información para adaptar sugerencias relacionadas con participación y metodologías"}
+              {currentStep === 2 && "Da contexto sobre el nivel académico de tus estudiantes. Selecciona el grado que atiendes con más frecuencia."}
+              {currentStep === 3 && "Da contexto sobre la complejidad del entorno del docente"}
+              {currentStep === 4 && "Ajusta el feedback a nivel curricular/regional"}
+              {currentStep === 5 && "¡Selecciona los recursos con los que cuentas. Todo suma!"}
+              {currentStep === 6 && "Información para adaptar sugerencias relacionadas con participación y metodologías"}
             </CardDescription>
           </CardHeader>
           
@@ -445,8 +477,48 @@ const Onboarding = () => {
               </div>
             )}
 
-            {/* Step 2: Total Students */}
+            {/* Step 2: Grade Selection */}
             {currentStep === 2 && (
+              <div className="space-y-4">
+                {formData.educationalLevel && getGradeOptions(formData.educationalLevel).length > 0 ? (
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="grade" className="text-base font-medium">
+                        Selecciona el grado
+                      </Label>
+                      <Select 
+                        value={formData.grade}
+                        onValueChange={(value) => setFormData(prev => ({ ...prev, grade: value }))}
+                      >
+                        <SelectTrigger className="h-12 transition-all duration-200 focus:shadow-soft">
+                          <SelectValue placeholder="Selecciona el grado que más atiendes" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-background border shadow-lg z-50">
+                          {getGradeOptions(formData.educationalLevel).map((grade) => (
+                            <SelectItem key={grade} value={grade}>{grade}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    {getGradeHelperText(formData.educationalLevel) && (
+                      <p className="text-sm text-muted-foreground">
+                        {getGradeHelperText(formData.educationalLevel)}
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <div className="text-center space-y-4 py-8">
+                    <p className="text-muted-foreground">
+                      Primero selecciona un nivel educativo en el paso anterior para ver las opciones de grado.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Step 3: Total Students */}
+            {currentStep === 3 && (
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="totalStudents" className="text-base font-medium">
@@ -469,8 +541,8 @@ const Onboarding = () => {
               </div>
             )}
 
-            {/* Step 3: Location */}
-            {currentStep === 3 && (
+            {/* Step 4: Location */}
+            {currentStep === 4 && (
               <div className="space-y-6">
                 {/* Department */}
                 <div className="space-y-2">
@@ -573,8 +645,8 @@ const Onboarding = () => {
               </div>
             )}
 
-            {/* Step 4: Resources */}
-            {currentStep === 4 && (
+            {/* Step 5: Resources */}
+            {currentStep === 5 && (
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {availableResources.map((resource) => (
@@ -611,8 +683,8 @@ const Onboarding = () => {
               </div>
             )}
 
-            {/* Step 5: Average Students Per Class */}
-            {currentStep === 5 && (
+            {/* Step 6: Average Students Per Class */}
+            {currentStep === 6 && (
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="averageStudents" className="text-base font-medium">
