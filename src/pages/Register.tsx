@@ -37,7 +37,7 @@ const Register = () => {
         <div className="text-center space-y-2">
           <Link to="/" className="inline-flex items-center space-x-2">
             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-warm">
-              <Brain className="w-7 h-7 text-primary" />
+              <img src="/lovable-uploads/7ecccd56-3e45-4c2e-b819-a26e92b82caf.png" alt="ALIADA" className="w-7 h-7 rounded-sm" />
             </div>
             <span className="text-2xl font-bold text-white">ALIADA</span>
           </Link>

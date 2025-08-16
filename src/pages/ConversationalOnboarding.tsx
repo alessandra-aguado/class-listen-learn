@@ -217,7 +217,7 @@ const ConversationalOnboarding = () => {
                 <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   {message.type === 'aliada' && (
                     <div className="w-8 h-8 rounded-full bg-ai-purple flex items-center justify-center mr-3 mt-1 flex-shrink-0">
-                      <Brain className="w-4 h-4 text-white" />
+                      <img src="/lovable-uploads/7ecccd56-3e45-4c2e-b819-a26e92b82caf.png" alt="ALIADA" className="w-4 h-4 rounded-sm" />
                     </div>
                   )}
                   <div className={`max-w-[80%] p-3 rounded-lg ${

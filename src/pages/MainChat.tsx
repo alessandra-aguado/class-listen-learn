@@ -226,7 +226,7 @@ Generado por ALIADA IA - Tu asistente educativo inteligente
         <div className="mb-6">
           <Link to="/" className="flex items-center space-x-2 mb-4">
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Brain className="w-5 h-5 text-primary-foreground" />
+              <img src="/lovable-uploads/7ecccd56-3e45-4c2e-b819-a26e92b82caf.png" alt="ALIADA" className="w-5 h-5 rounded-sm" />
             </div>
             <span className="text-lg font-bold">ALIADA</span>
           </Link>
@@ -290,7 +290,7 @@ Generado por ALIADA IA - Tu asistente educativo inteligente
             <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
               {message.type === 'aliada' && (
                 <div className="w-10 h-10 rounded-full bg-ai-purple flex items-center justify-center mr-3 mt-1 flex-shrink-0">
-                  <Brain className="w-5 h-5 text-white" />
+                  <img src="/lovable-uploads/7ecccd56-3e45-4c2e-b819-a26e92b82caf.png" alt="ALIADA" className="w-5 h-5 rounded-sm" />
                 </div>
               )}
               <div className={`max-w-[70%] p-4 rounded-lg ${
@@ -309,7 +309,7 @@ Generado por ALIADA IA - Tu asistente educativo inteligente
           {isUploading && (
             <div className="flex justify-start">
               <div className="w-10 h-10 rounded-full bg-ai-purple flex items-center justify-center mr-3 mt-1 flex-shrink-0">
-                <Brain className="w-5 h-5 text-white" />
+                <img src="/lovable-uploads/7ecccd56-3e45-4c2e-b819-a26e92b82caf.png" alt="ALIADA" className="w-5 h-5 rounded-sm" />
               </div>
               <div className="max-w-[70%] p-4 rounded-lg bg-ai-purple-soft border border-border">
                 <div className="flex items-center space-x-2">

@@ -79,7 +79,7 @@ const ChatGPTInterface = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-full bg-ai-purple flex items-center justify-center">
-              <Brain className="w-5 h-5 text-white" />
+              <img src="/lovable-uploads/7ecccd56-3e45-4c2e-b819-a26e92b82caf.png" alt="ALIADA" className="w-5 h-5 rounded-sm" />
             </div>
             <div>
               <h1 className="text-xl font-semibold">Aliada</h1>
@@ -104,7 +104,7 @@ const ChatGPTInterface = () => {
                 : 'bg-primary'
             }`}>
               {message.type === 'aliada' ? (
-                <Brain className="w-4 h-4 text-white" />
+                <img src="/lovable-uploads/7ecccd56-3e45-4c2e-b819-a26e92b82caf.png" alt="ALIADA" className="w-4 h-4 rounded-sm" />
               ) : (
                 <div className="w-4 h-4 bg-white rounded-full" />
               )}
@@ -130,7 +130,7 @@ const ChatGPTInterface = () => {
         {isLoading && (
           <div className="flex gap-4">
             <div className="w-8 h-8 rounded-full bg-ai-purple flex items-center justify-center flex-shrink-0">
-              <Brain className="w-4 h-4 text-white" />
+              <img src="/lovable-uploads/7ecccd56-3e45-4c2e-b819-a26e92b82caf.png" alt="ALIADA" className="w-4 h-4 rounded-sm" />
             </div>
             <div className="flex-1 max-w-3xl">
               <div className="bg-muted p-4 rounded-lg">
