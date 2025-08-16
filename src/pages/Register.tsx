@@ -41,7 +41,7 @@ const Register = () => {
             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-warm">
               <Brain className="w-7 h-7 text-primary" />
             </div>
-            <span className="text-2xl font-bold text-white">PlanificaIA</span>
+            <span className="text-2xl font-bold text-white">ALIADA</span>
           </Link>
           <p className="text-white/80">Crea tu cuenta y comienza a mejorar</p>
         </div>
