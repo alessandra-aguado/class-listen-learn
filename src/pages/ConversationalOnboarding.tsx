@@ -204,7 +204,7 @@ const ConversationalOnboarding = () => {
             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-warm">
               <Brain className="w-7 h-7 text-primary" />
             </div>
-            <span className="text-2xl font-bold text-white">Aliada</span>
+            <span className="text-2xl font-bold text-white">PlanificaIA</span>
           </Link>
         </div>
 

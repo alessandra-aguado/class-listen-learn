@@ -15,7 +15,7 @@ const ChatGPTInterface = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       type: 'aliada',
-      content: 'Hola, soy Aliada. ¿Cómo puedo ayudarte hoy?\n\nPuedes preguntarme sobre planificación de clases, metodologías de enseñanza, o subir el audio de una clase para que la analice.',
+      content: 'Hola, soy Aliada, tu asistente de IA educativa. ¿Cómo puedo ayudarte hoy?\n\nPuedes preguntarme sobre planificación de clases, metodologías de enseñanza, o subir el audio de una clase para que la analice.',
       timestamp: new Date()
     }
   ]);
