@@ -7,38 +7,34 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
-import { Brain, MapPin, Users, BookOpen, Laptop, ChevronRight, ChevronLeft } from "lucide-react";
+import { Brain, MapPin, Users, BookOpen, Laptop, ChevronRight, ChevronLeft, GraduationCap, Baby, School } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 interface OnboardingData {
-  school: string;
+  educationalLevel: string;
+  totalStudents: number;
   location: string;
-  isRural: boolean;
   resources: string[];
-  grade: string;
-  studentCount: number;
-  experience: number;
-  methodology: string;
-  bio: string;
+  averageStudentsPerClass: number;
+  otherLevel: string;
+  otherResource: string;
 }
 
 const Onboarding = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<OnboardingData>({
-    school: "",
+    educationalLevel: "",
+    totalStudents: 0,
     location: "",
-    isRural: false,
     resources: [],
-    grade: "",
-    studentCount: 25,
-    experience: 5,
-    methodology: "",
-    bio: ""
+    averageStudentsPerClass: 0,
+    otherLevel: "",
+    otherResource: ""
   });
 
-  const totalSteps = 4;
+  const totalSteps = 5;
   const progress = (currentStep / totalSteps) * 100;
 
   const handleNext = () => {
@@ -66,14 +62,11 @@ const Onboarding = () => {
   };
 
   const availableResources = [
-    "Computadoras/Tablets",
-    "Internet de alta velocidad",
-    "Proyector/Pantalla",
-    "Pizarra digital",
-    "Biblioteca física",
-    "Laboratorio de ciencias",
-    "Material didáctico variado",
-    "Sistema de sonido"
+    "Proyector",
+    "Computadoras", 
+    "Internet",
+    "Material impreso",
+    "Otros"
   ];
 
   return (
@@ -85,7 +78,7 @@ const Onboarding = () => {
             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-warm">
               <Brain className="w-7 h-7 text-primary" />
             </div>
-            <span className="text-2xl font-bold text-white">PlanificaIA</span>
+            <span className="text-2xl font-bold text-white">ALIADA</span>
           </Link>
           <div className="space-y-2">
             <h1 className="text-2xl font-bold text-white">Personaliza tu experiencia</h1>
@@ -106,177 +99,216 @@ const Onboarding = () => {
         <Card className="border-0 shadow-elevated">
           <CardHeader>
             <CardTitle className="text-xl">
-              {currentStep === 1 && "Contexto educativo"}
-              {currentStep === 2 && "Recursos disponibles"}
-              {currentStep === 3 && "Información de clase"}
-              {currentStep === 4 && "Experiencia profesional"}
+              {currentStep === 1 && "Nivel educativo que impartes"}
+              {currentStep === 2 && "¿Cuántos estudiantes tienes actualmente?"}
+              {currentStep === 3 && "Ubicación del centro educativo"}
+              {currentStep === 4 && "Recursos disponibles"}
+              {currentStep === 5 && "Cantidad promedio de estudiantes por clase"}
             </CardTitle>
             <CardDescription>
-              {currentStep === 1 && "Cuéntanos sobre tu centro educativo"}
-              {currentStep === 2 && "¿Qué recursos tienes disponibles para enseñar?"}
-              {currentStep === 3 && "Detalles sobre tus clases actuales"}
-              {currentStep === 4 && "Tu experiencia y metodología de enseñanza"}
+              {currentStep === 1 && "Permite a la IA adaptar el análisis pedagógico según el rango de edad y competencias esperadas"}
+              {currentStep === 2 && "Da contexto sobre la complejidad del entorno del docente"}
+              {currentStep === 3 && "Ajusta el feedback a nivel curricular/regional"}
+              {currentStep === 4 && "¡Selecciona los recursos con los que cuentas. Todo suma!"}
+              {currentStep === 5 && "Información para adaptar sugerencias relacionadas con participación y metodologías"}
             </CardDescription>
           </CardHeader>
           
           <CardContent className="space-y-6">
-            {/* Step 1: Educational Context */}
+            {/* Step 1: Educational Level */}
             {currentStep === 1 && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <button
+                    onClick={() => setFormData(prev => ({ ...prev, educationalLevel: "inicial" }))}
+                    className={`p-6 rounded-lg border-2 transition-all hover:shadow-md ${
+                      formData.educationalLevel === "inicial" 
+                        ? "border-primary bg-primary/5 shadow-soft" 
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <div className="flex flex-col items-center space-y-3">
+                      <Baby className="w-8 h-8 text-primary" />
+                      <span className="font-medium">Inicial</span>
+                    </div>
+                  </button>
+                  
+                  <button
+                    onClick={() => setFormData(prev => ({ ...prev, educationalLevel: "primaria" }))}
+                    className={`p-6 rounded-lg border-2 transition-all hover:shadow-md ${
+                      formData.educationalLevel === "primaria" 
+                        ? "border-primary bg-primary/5 shadow-soft" 
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <div className="flex flex-col items-center space-y-3">
+                      <BookOpen className="w-8 h-8 text-primary" />
+                      <span className="font-medium">Primaria</span>
+                    </div>
+                  </button>
+                  
+                  <button
+                    onClick={() => setFormData(prev => ({ ...prev, educationalLevel: "secundaria" }))}
+                    className={`p-6 rounded-lg border-2 transition-all hover:shadow-md ${
+                      formData.educationalLevel === "secundaria" 
+                        ? "border-primary bg-primary/5 shadow-soft" 
+                        : "border-border hover:border-primary/50"
+                    }`}
+                  >
+                    <div className="flex flex-col items-center space-y-3">
+                      <GraduationCap className="w-8 h-8 text-primary" />
+                      <span className="font-medium">Secundaria</span>
+                    </div>
+                  </button>
+                </div>
+                
+                <button
+                  onClick={() => setFormData(prev => ({ ...prev, educationalLevel: "otro" }))}
+                  className={`w-full p-4 rounded-lg border-2 transition-all hover:shadow-md ${
+                    formData.educationalLevel === "otro" 
+                      ? "border-primary bg-primary/5 shadow-soft" 
+                      : "border-border hover:border-primary/50"
+                  }`}
+                >
+                  <div className="flex items-center justify-center space-x-2">
+                    <School className="w-5 h-5 text-primary" />
+                    <span className="font-medium">Otro</span>
+                  </div>
+                </button>
+                
+                {formData.educationalLevel === "otro" && (
+                  <div className="space-y-2">
+                    <Label htmlFor="otherLevel">Especifica el nivel educativo</Label>
+                    <Input
+                      id="otherLevel"
+                      placeholder="Ej: Universidad, Educación especial, etc."
+                      value={formData.otherLevel}
+                      onChange={(e) => setFormData(prev => ({ ...prev, otherLevel: e.target.value }))}
+                      className="transition-all duration-200 focus:shadow-soft"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Step 2: Total Students */}
+            {currentStep === 2 && (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="school" className="flex items-center space-x-2">
-                    <BookOpen className="w-4 h-4" />
-                    <span>Nombre del centro educativo</span>
+                  <Label htmlFor="totalStudents" className="text-base font-medium">
+                    Incluye todos los grupos que atiendes en total
                   </Label>
                   <Input
-                    id="school"
-                    placeholder="Ej: Escuela Primaria San José"
-                    value={formData.school}
-                    onChange={(e) => setFormData(prev => ({ ...prev, school: e.target.value }))}
-                    className="transition-all duration-200 focus:shadow-soft"
+                    id="totalStudents"
+                    type="number"
+                    placeholder="Ej: 30"
+                    value={formData.totalStudents || ""}
+                    onChange={(e) => setFormData(prev => ({ ...prev, totalStudents: parseInt(e.target.value) || 0 }))}
+                    className="h-12 text-base transition-all duration-200 focus:shadow-soft"
+                    min="1"
+                    max="999"
                   />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="location" className="flex items-center space-x-2">
-                    <MapPin className="w-4 h-4" />
-                    <span>Ubicación (País/Ciudad)</span>
-                  </Label>
-                  <Input
-                    id="location"
-                    placeholder="Ej: Madrid, España"
-                    value={formData.location}
-                    onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
-                    className="transition-all duration-200 focus:shadow-soft"
-                  />
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="rural"
-                    checked={formData.isRural}
-                    onCheckedChange={(checked) => 
-                      setFormData(prev => ({ ...prev, isRural: !!checked }))
-                    }
-                  />
-                  <Label htmlFor="rural">El centro se encuentra en zona rural</Label>
+                  <p className="text-sm text-muted-foreground">
+                    💡 Incluye todos los grupos que atiendes en total.
+                  </p>
                 </div>
               </div>
             )}
 
-            {/* Step 2: Resources */}
-            {currentStep === 2 && (
+            {/* Step 3: Location */}
+            {currentStep === 3 && (
               <div className="space-y-4">
-                <p className="text-sm text-muted-foreground">
-                  Selecciona todos los recursos que tienes disponible en tu centro educativo:
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <Label htmlFor="location" className="flex items-center space-x-2">
+                    <MapPin className="w-4 h-4" />
+                    <span>Ciudad o región</span>
+                  </Label>
+                  <Select onValueChange={(value) => setFormData(prev => ({ ...prev, location: value }))}>
+                    <SelectTrigger className="h-12 transition-all duration-200 focus:shadow-soft">
+                      <SelectValue placeholder="Selecciona tu ubicación" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="madrid">Madrid, España</SelectItem>
+                      <SelectItem value="barcelona">Barcelona, España</SelectItem>
+                      <SelectItem value="valencia">Valencia, España</SelectItem>
+                      <SelectItem value="sevilla">Sevilla, España</SelectItem>
+                      <SelectItem value="zaragoza">Zaragoza, España</SelectItem>
+                      <SelectItem value="malaga">Málaga, España</SelectItem>
+                      <SelectItem value="murcia">Murcia, España</SelectItem>
+                      <SelectItem value="palmas">Las Palmas, España</SelectItem>
+                      <SelectItem value="bilbao">Bilbao, España</SelectItem>
+                      <SelectItem value="alicante">Alicante, España</SelectItem>
+                      <SelectItem value="cordoba">Córdoba, España</SelectItem>
+                      <SelectItem value="valladolid">Valladolid, España</SelectItem>
+                      <SelectItem value="vigo">Vigo, España</SelectItem>
+                      <SelectItem value="gijon">Gijón, España</SelectItem>
+                      <SelectItem value="hospitalet">L'Hospitalet, España</SelectItem>
+                      <SelectItem value="coruña">A Coruña, España</SelectItem>
+                      <SelectItem value="vitoria">Vitoria, España</SelectItem>
+                      <SelectItem value="granada">Granada, España</SelectItem>
+                      <SelectItem value="elche">Elche, España</SelectItem>
+                      <SelectItem value="oviedo">Oviedo, España</SelectItem>
+                      <SelectItem value="otra">Otra ubicación</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+            )}
+
+            {/* Step 4: Resources */}
+            {currentStep === 4 && (
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {availableResources.map((resource) => (
-                    <div key={resource} className="flex items-center space-x-2">
+                    <div key={resource} className="flex items-center space-x-3 p-4 border rounded-lg hover:bg-muted/50 transition-colors">
                       <Checkbox
                         id={resource}
                         checked={formData.resources.includes(resource)}
                         onCheckedChange={() => handleResourceToggle(resource)}
+                        className="h-5 w-5"
                       />
-                      <Label htmlFor={resource} className="text-sm">{resource}</Label>
+                      <Label htmlFor={resource} className="text-base font-medium cursor-pointer flex-1">
+                        {resource === "Proyector" && <div className="flex items-center space-x-2"><Laptop className="w-5 h-5" /><span>Proyector</span></div>}
+                        {resource === "Computadoras" && <div className="flex items-center space-x-2"><Laptop className="w-5 h-5" /><span>Computadoras</span></div>}
+                        {resource === "Internet" && <div className="flex items-center space-x-2"><MapPin className="w-5 h-5" /><span>Internet</span></div>}
+                        {resource === "Material impreso" && <div className="flex items-center space-x-2"><BookOpen className="w-5 h-5" /><span>Material impreso</span></div>}
+                        {resource === "Otros" && <div className="flex items-center space-x-2"><Brain className="w-5 h-5" /><span>Otros</span></div>}
+                      </Label>
                     </div>
                   ))}
                 </div>
+                
+                {formData.resources.includes("Otros") && (
+                  <div className="space-y-2">
+                    <Label htmlFor="otherResource">Especifica otros recursos</Label>
+                    <Input
+                      id="otherResource"
+                      placeholder="Ej: Pizarra digital, tablets, laboratorio..."
+                      value={formData.otherResource}
+                      onChange={(e) => setFormData(prev => ({ ...prev, otherResource: e.target.value }))}
+                      className="transition-all duration-200 focus:shadow-soft"
+                    />
+                  </div>
+                )}
               </div>
             )}
 
-            {/* Step 3: Class Information */}
-            {currentStep === 3 && (
+            {/* Step 5: Average Students Per Class */}
+            {currentStep === 5 && (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="grade">Grado que enseñas principalmente</Label>
-                  <Select onValueChange={(value) => setFormData(prev => ({ ...prev, grade: value }))}>
-                    <SelectTrigger className="transition-all duration-200 focus:shadow-soft">
-                      <SelectValue placeholder="Selecciona el grado" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="preescolar">Preescolar</SelectItem>
-                      <SelectItem value="1-primaria">1° Primaria</SelectItem>
-                      <SelectItem value="2-primaria">2° Primaria</SelectItem>
-                      <SelectItem value="3-primaria">3° Primaria</SelectItem>
-                      <SelectItem value="4-primaria">4° Primaria</SelectItem>
-                      <SelectItem value="5-primaria">5° Primaria</SelectItem>
-                      <SelectItem value="6-primaria">6° Primaria</SelectItem>
-                      <SelectItem value="1-secundaria">1° Secundaria</SelectItem>
-                      <SelectItem value="2-secundaria">2° Secundaria</SelectItem>
-                      <SelectItem value="3-secundaria">3° Secundaria</SelectItem>
-                      <SelectItem value="4-secundaria">4° Secundaria</SelectItem>
-                      <SelectItem value="universidad">Universidad</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-3">
-                  <Label className="flex items-center space-x-2">
-                    <Users className="w-4 h-4" />
-                    <span>Cantidad promedio de estudiantes por clase</span>
+                  <Label htmlFor="averageStudents" className="text-base font-medium">
+                    Cantidad promedio de estudiantes por clase
                   </Label>
-                  <div className="space-y-2">
-                    <Slider
-                      value={[formData.studentCount]}
-                      onValueChange={([value]) => setFormData(prev => ({ ...prev, studentCount: value }))}
-                      max={50}
-                      min={5}
-                      step={1}
-                      className="w-full"
-                    />
-                    <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>5 estudiantes</span>
-                      <span className="font-medium">{formData.studentCount} estudiantes</span>
-                      <span>50+ estudiantes</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Step 4: Professional Experience */}
-            {currentStep === 4 && (
-              <div className="space-y-4">
-                <div className="space-y-3">
-                  <Label>¿Cuántos años llevas enseñando?</Label>
-                  <div className="space-y-2">
-                    <Slider
-                      value={[formData.experience]}
-                      onValueChange={([value]) => setFormData(prev => ({ ...prev, experience: value }))}
-                      max={40}
-                      min={0}
-                      step={1}
-                      className="w-full"
-                    />
-                    <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>Nuevo</span>
-                      <span className="font-medium">{formData.experience} años</span>
-                      <span>40+ años</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="methodology">¿Qué metodología usas principalmente?</Label>
                   <Input
-                    id="methodology"
-                    placeholder="Ej: Aprendizaje por proyectos, metodología tradicional, constructivismo..."
-                    value={formData.methodology}
-                    onChange={(e) => setFormData(prev => ({ ...prev, methodology: e.target.value }))}
-                    className="transition-all duration-200 focus:shadow-soft"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="bio">Cuéntanos de ti como profesor/a (opcional)</Label>
-                  <Textarea
-                    id="bio"
-                    placeholder="Describe tu enfoque de enseñanza, materias favoritas, desafíos que enfrentas..."
-                    value={formData.bio}
-                    onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
-                    rows={4}
-                    className="transition-all duration-200 focus:shadow-soft"
+                    id="averageStudents"
+                    type="number"
+                    placeholder="Ej: 25"
+                    value={formData.averageStudentsPerClass || ""}
+                    onChange={(e) => setFormData(prev => ({ ...prev, averageStudentsPerClass: parseInt(e.target.value) || 0 }))}
+                    className="h-12 text-base transition-all duration-200 focus:shadow-soft"
+                    min="1"
+                    max="999"
                   />
                 </div>
               </div>
