@@ -11,6 +11,7 @@ import Onboarding from "./pages/Onboarding";
 import ConversationalOnboarding from "./pages/ConversationalOnboarding";
 import Dashboard from "./pages/Dashboard";
 import MainChat from "./pages/MainChat";
+import ChatGPTInterface from "./pages/ChatGPTInterface";
 import AISession from "./pages/AISession";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/conversational-onboarding" element={<ConversationalOnboarding />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/main-chat" element={<MainChat />} />
+          <Route path="/chat" element={<ChatGPTInterface />} />
           <Route path="/ai-session/:classId" element={<AISession />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

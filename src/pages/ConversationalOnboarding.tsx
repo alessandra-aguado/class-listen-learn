@@ -45,12 +45,12 @@ const ConversationalOnboarding = () => {
   const conversationFlow: Message[] = [
     {
       type: 'aliada',
-      content: '¡Hola! 😊 ¿Cómo te llamas?',
+      content: '¡Hola! ¿Cómo te llamas?',
       inputType: 'text'
     },
     {
       type: 'aliada',
-      content: '¡Encantada de conocerte, {{name}}!\nEstoy aquí para ayudarte a mejorar tus clases con apoyo de inteligencia artificial.\nAntes de comenzar, me gustaría conocerte un poco más para darte una experiencia personalizada. ¡Es rapidito!',
+      content: '¡Encantada de conocerte, {{name}}!\nSoy Aliada, tu asistente de IA educativa. Me gustaría conocerte mejor para brindarte la mejor experiencia personalizada.',
       inputType: 'text'
     },
     {
@@ -68,7 +68,7 @@ const ConversationalOnboarding = () => {
     },
     {
       type: 'aliada',
-      content: '¿Cuántos estudiantes tienes actualmente?',
+      content: '¿Cuántos estudiantes tienes?',
       inputType: 'number'
     },
     {
@@ -78,11 +78,18 @@ const ConversationalOnboarding = () => {
       selectOptions: [
         { value: 'madrid-espana', label: 'Madrid, España' },
         { value: 'barcelona-espana', label: 'Barcelona, España' },
+        { value: 'valencia-espana', label: 'Valencia, España' },
+        { value: 'sevilla-espana', label: 'Sevilla, España' },
         { value: 'buenos-aires-argentina', label: 'Buenos Aires, Argentina' },
+        { value: 'cordoba-argentina', label: 'Córdoba, Argentina' },
         { value: 'cdmx-mexico', label: 'Ciudad de México, México' },
+        { value: 'guadalajara-mexico', label: 'Guadalajara, México' },
         { value: 'bogota-colombia', label: 'Bogotá, Colombia' },
+        { value: 'medellin-colombia', label: 'Medellín, Colombia' },
         { value: 'lima-peru', label: 'Lima, Perú' },
+        { value: 'arequipa-peru', label: 'Arequipa, Perú' },
         { value: 'santiago-chile', label: 'Santiago, Chile' },
+        { value: 'valparaiso-chile', label: 'Valparaíso, Chile' },
         { value: 'otro', label: 'Otro' }
       ]
     },
@@ -90,11 +97,11 @@ const ConversationalOnboarding = () => {
       type: 'aliada',
       content: '¿Qué recursos tienes disponibles en tu centro?',
       inputType: 'checkbox',
-      checkboxOptions: ['Proyector', 'Computadoras', 'Internet', 'Material impreso', 'Pizarra digital', 'Laboratorio', 'Biblioteca']
+      checkboxOptions: ['Proyector', 'Computadoras', 'Internet', 'Material impreso', 'Otros']
     },
     {
       type: 'aliada',
-      content: 'En promedio, ¿cuántos estudiantes tienes por clase?',
+      content: 'Cantidad promedio de estudiantes por clase',
       inputType: 'number'
     },
     {
@@ -119,7 +126,7 @@ const ConversationalOnboarding = () => {
     },
     {
       type: 'aliada',
-      content: '¡Gracias, {{name}}! Ya tengo lo necesario para empezar a trabajar contigo.\n\n✨ Estoy lista para ayudarte a analizar tus clases, darte retroalimentación, y mejorar tu planificación docente.\n\n➡️ Te doy la bienvenida a tu espacio. Puedes subir tu primera clase cuando quieras.',
+      content: '¡Perfecto, {{name}}! Ya tengo todo lo que necesito para comenzar a trabajar contigo.\n\n✨ Estoy lista para ayudarte a analizar tus clases y mejorar tu enseñanza.',
       inputType: 'text'
     }
   ];
@@ -171,7 +178,7 @@ const ConversationalOnboarding = () => {
     } else {
       // Complete onboarding
       setTimeout(() => {
-        navigate("/main-chat");
+        navigate("/chat");
       }, 2000);
     }
   };
