@@ -48,7 +48,7 @@ const Onboarding = () => {
       setCurrentStep(currentStep + 1);
     } else {
       // Complete onboarding
-      navigate("/dashboard");
+      navigate("/audio-introduction");
     }
   };
 

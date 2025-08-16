@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Onboarding from "./pages/Onboarding";
 import ConversationalOnboarding from "./pages/ConversationalOnboarding";
+import AudioIntroduction from "./pages/AudioIntroduction";
 import Dashboard from "./pages/Dashboard";
 import MainChat from "./pages/MainChat";
 import ChatGPTInterface from "./pages/ChatGPTInterface";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/register" element={<Register />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/conversational-onboarding" element={<ConversationalOnboarding />} />
+          <Route path="/audio-introduction" element={<AudioIntroduction />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/main-chat" element={<MainChat />} />
           <Route path="/chat" element={<ChatGPTInterface />} />
