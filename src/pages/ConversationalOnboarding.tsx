@@ -6,6 +6,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Brain, MapPin, Users, BookOpen, Laptop } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import aliadaLogo from "@/assets/aliada-logo.png";
 
 interface OnboardingData {
   name: string;
@@ -201,8 +202,8 @@ const ConversationalOnboarding = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex items-center space-x-2 mb-6">
-            <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-warm">
-              <Brain className="w-7 h-7 text-primary" />
+            <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-warm overflow-hidden">
+              <img src={aliadaLogo} alt="ALIADA Logo" className="w-10 h-10 object-contain" />
             </div>
             <span className="text-2xl font-bold text-white">ALIADA</span>
           </Link>
