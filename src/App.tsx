@@ -8,7 +8,9 @@ import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Onboarding from "./pages/Onboarding";
+import ConversationalOnboarding from "./pages/ConversationalOnboarding";
 import Dashboard from "./pages/Dashboard";
+import MainChat from "./pages/MainChat";
 import AISession from "./pages/AISession";
 
 const queryClient = new QueryClient();
@@ -24,7 +26,9 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/conversational-onboarding" element={<ConversationalOnboarding />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/main-chat" element={<MainChat />} />
           <Route path="/ai-session/:classId" element={<AISession />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
